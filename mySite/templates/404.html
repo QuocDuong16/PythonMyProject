@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block user %}
+{% if check %}
+{{user}}
+<button style="margin-top:8px"><a href="{% url 'logout' %}">logout</a></button>
+{% endif %}
+{% endblock %}
+{% block menu %}
+	<li><a href="/"><div class="hm"><i class="home1"></i><i class="home2"></i></div></a></li>
+	<li><a href="{% url 'movie' %}"><div class="cat"><i class="watching"></i><i class="watching1"></i></div></a></li>
+	<li><a class="active" href="{% url 'error_404' %}"><div class="bk"><i class="booking"></i><i class="booking1"></i></div></a></li>
+	<li><a href="{% url 'contact' %}"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>
+	{% if check %}
+	{% else %}
+	<li><a href="{% url 'register' %}"><div class="vld"><i class="validation"></i><i class="validation1"></i></div></a></li>
+	{% endif %}
+{% endblock %}
+{% block main %}
+<div class="error-content">
+	<div class="top-header span_top">
+		<div class="logo">
+			<a href="/"><img src="{% static 'mySite/img/logo.png' %}" alt="" /></a>
+			<p>Movie Ticket</p>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="error-404 text-center">
+		<h2>404</h2>
+		<p>Sorry this was unexpected</p>
+		<a class="b-home" href="/">Back to Home</a>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>{% block title %} {% endblock %}</title>
+    <link href="{% static 'mySite/css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
+    <!-- Custom Theme files -->
+    <link href="{% static 'mySite/css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <!-- Custom Theme files -->
+    <script src="{% static 'mySite/js/jquery.min.js' %}"></script>
+    <!-- Custom Theme files -->
+    {% block css %}
+    {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Cinema Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+    Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!--webfont-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<!-- header-section-starts -->
+	<div class="full">
+		<div class="menu">
+			<ul>
+				{% block menu %}{% endblock %}
+			</ul>
+			<h1 style="font-size:14px; color:white; padding: 20px 5px;max-width: 104px;text-align:center;">{% block user %}{% endblock %}</h1>
+		</div>
+		<div class="main">
+			{% block main %}{% endblock %}
+			<div class="footer">
+				<h6>Disclaimer : </h6>
+				<p class="claim">This is a freebies and not an official website, I have no intention of disclose any movie, brand, news.My goal here is to train or excercise my skill and share this freebies.</p>
+				<a href="example@mail.com">example@mail.com</a>
+				<div class="copyright">
+					<p> Template by  <a href="http://w3layouts.com">  W3layouts</a></p>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</body>
+</html>

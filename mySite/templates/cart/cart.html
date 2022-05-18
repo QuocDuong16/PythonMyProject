@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+<link href="{% static 'mySite/css/cart.css' %}" rel="stylesheet" type="text/css" media="all">
+<script src="{% static 'mySite/js/cart.js' %}"></script>
+{% endblock %}
+{% block title %}Movies{% endblock %}
+{% block user %}
+{% if check %}
+{{user}}
+<button style="margin-top:8px"><a href="{% url 'logout' %}">logout</a></button>
+{% endif %}
+{% endblock %}
+{% block menu %}
+	<li><a href="/"><div class="hm"><i class="home1"></i><i class="home2"></i></div></a></li>
+	<li><a href="{% url 'movie' %}"><div class="cat"><i class="watching"></i><i class="watching1"></i></div></a></li>
+	<li><a class="active" href="{% url 'cart' %}"><div class="bk"><i class="booking"></i><i class="booking1"></i></div></a></li>
+	<li><a href="{% url 'contact' %}"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>
+	{% if check %}
+    {% else %}
+    <li><a href="{% url 'register' %}"><div class="vld"><i class="validation"></i><i class="validation1"></i></div></a></li>
+    {% endif %}
+{% endblock %}
+{% load static %}
+{% block main %}
+<div class="top-header">
+    <div class="logo">
+        <a href="/"><img src="{% static 'mySite/img/logo.png' %}" alt="logo" /></a>
+        <p>Movie Ticket</p>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<header id="site-header">
+    <div class="container">
+        <h1>Shopping cart <span>[</span> <em><a href="https://codepen.io/tag/rodeo-007" target="_blank">CodePen Challange</a></em> <span class="last-span is-open">]</span></h1>
+    </div>
+</header>
+<div class="container">
+    <section id="cart"> 
+        {% for item in cart_items %}
+        <article class="product">
+            <header>
+                <a class="remove">
+                    <img src="{{ item.movie.image.url }}" alt="">
+                    <a href="{% url 'remove_cart_item' item.movie.id item.id %}">
+                        <h3>Remove product</h3>
+                    </a>
+                </a>
+            </header>
+            <div class="content">
+                <h1>{{ item.movie.movie_name }}</h1>
+                {{ item.movie.description }}
+            </div>
+            <footer class="content">
+                <h2 class="full-price">
+                    {{ item.movie.ticket_fare }}Đ
+                </h2>
+            </footer>
+        </article>
+        {% endfor %}
+    </section>
+</div>
+
+<footer id="site-footer">
+    <div class="container clearfix">
+
+        <div class="left">
+            <h2 class="subtotal">Subtotal: <span>{{ total }}</span>Đ</h2>
+            <h3 class="tax">Taxes (5%): <span>{{ tax }}</span>Đ</h3>
+        </div>
+
+        <div class="right">
+            <h1 class="total">Total: <span>{{ grand_total }}</span>Đ</h1>
+            <a href="{% url 'checkout' %}" class="btn">Checkout</a>
+        </div>
+
+    </div>
+</footer>
+{% endblock %}

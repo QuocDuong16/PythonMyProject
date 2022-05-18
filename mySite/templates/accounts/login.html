@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+<link href="{% static 'mySite/css/validation.css' %}" rel="stylesheet" type="text/css" media="all">
+{% endblock %}
+{% block title %}Validation{% endblock %}
+{% block menu %}
+	<li><a href="/"><div class="hm"><i class="home1"></i><i class="home2"></i></div></a></li>
+	<li><a href="{% url 'movie' %}"><div class="cat"><i class="watching"></i><i class="watching1"></i></div></a></li>
+	<li><a href="{% url 'cart' %}"><div class="bk"><i class="booking"></i><i class="booking1"></i></div></a></li>
+	<li><a href="{% url 'contact' %}"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>
+	<li><a class="active" href="{% url 'login' %}"><div class="vld"><i class="validation"></i><i class="validation1"></i></div></a></li>
+{% endblock %}
+{% block main %}
+<div class="top-header">
+    <div class="logo">
+        <a href="/"><img src="{% static 'mySite/img/logo.png' %}" alt="logo" /></a>
+        <p>Movie Ticket</p>
+    </div>
+    <div class="clearfix"></div>
+</div>
+{% include "includes/alerts.html" %}
+<div class="container">
+    <div class="content">
+        <div class="logo">
+            <img src="{% static 'mySite/img/logo.svg' %}" alt="" />
+        </div>
+        <div class="image"></div>
+        <div class="text">
+            Start for free & get <br />
+            attractive offers today !
+        </div>
+    </div>
+    <form id="form" action="{% url 'login' %}" method="POST">
+        <div class="social">
+            <div class="title">Get Started</div>
+            <div class="question">
+                Don't Have an Account? <br />
+                <span><a href="{% url 'register' %}">Sign Up</a></span>
+            </div>
+        </div>
+        {% csrf_token %}
+        <!-- /** 
+                * ! Email Input here
+            **/ -->
+        <div>
+            <label for="email">Email</label>
+            <i class="far fa-envelope"></i>
+            <input type="email" name="email" id="email" placeholder="abc@gmail.com" value="{{ email }}" />
+            <i class="fas fa-exclamation-circle failure-icon"></i>
+            <i class="far fa-check-circle success-icon"></i>
+            <div class="error"></div>
+        </div>
+        <!-- /**
+                * ! Password Input here
+            **/ -->
+        <div>
+            <label for="password">Password</label>
+            <i class="fas fa-lock"></i>
+            <input type="password" name="password" id="password" placeholder="Password here" value="{{ password }}" />
+            <i class="fas fa-exclamation-circle failure-icon"></i>
+            <i class="far fa-check-circle success-icon"></i>
+            <div class="error"></div>
+        </div>
+        <a href="">Forgot password?</a>
+        <button type="submit" id="submit">Submit</button>
+    </form>
+</div>
+<div class="footer">
+    <h6>Disclaimer : </h6>
+    <p class="claim">This is a freebies and not an official website, I have no intention of disclose any movie, brand, news.My goal here is to train or excercise my skill and share this freebies.</p>
+    <a href="example@mail.com">example@mail.com</a>
+    <div class="copyright">
+        <p> Template by  <a href="http://w3layouts.com">  W3layouts</a></p>
+    </div>
+</div>
+{% endblock %}

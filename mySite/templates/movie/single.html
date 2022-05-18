@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block title %}Home page{% endblock %}
+{% block user %}
+{% if check %}
+{{user}}
+<button style="margin-top:8px"><a href="{% url 'logout' %}">logout</a></button>
+{% endif %}
+{% endblock %}
+{% block menu %}
+	<li><a class="active" href="/"><i class="home"></i></a></li>
+	<li><a href="{% url 'movie' %}"><div class="cat"><i class="watching"></i><i class="watching1"></i></div></a></li>
+	<li><a href="{% url 'cart' %}"><div class="bk"><i class="booking"></i><i class="booking1"></i></div></a></li>
+	<li><a href="{% url 'contact' %}"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>
+	{% if check %}
+	{% else %}
+	<li><a href="{% url 'register' %}"><div class="vld"><i class="validation"></i><i class="validation1"></i></div></a></li>
+	{% endif %}
+{% endblock %}
+{% load static %}
+{% block main %}
+<style>
+	.review-content {
+		height: 1500px;
+	}
+	.best-review {
+		display: block;
+	}
+	.dropdown-button {
+		margin: 30px 0px 60px 20px;
+	}
+	.grade1 {
+		width: 100%;
+	}
+	.grade1 p {
+		display: inline-block;
+	}
+	.price-ticket {
+		margin-left: 20px;
+		margin-bottom: 30px;
+		display: inline-block;
+		min-width: 100px;
+	}
+	button {
+		padding: 3px;
+		margin-left: 15px;
+	}
+</style>
+<div class="review-content">
+	<div class="top-header span_top">
+		<div class="logo">
+			<a href="/"><img src="{% static 'mySite/img/logo.png' %}" alt="logo" /></a>
+			<p>Movie Ticket</p>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="reviews-section">
+		<h3 class="head">Movie</h3>
+		<div class="col-md-9 reviews-grids">
+			<div class="review">
+				<div class="movie-pic">
+					<a href="#"><img src="{{ single_movie.image.url }}" alt="" /></a>
+				</div>
+				<div class="review-info">
+					<a class="span" href="#">{{ single_movie.movie_name }}</a>
+					<p class="dirctr">{{ single_movie.premiere_date }}</p>
+					<p class="ratingview">Rating:</p>
+					<p class="ratingview">
+					&nbsp;{{ single_movie.rating }}/10  
+					</p>
+					<div class="clearfix"></div>
+					<div class="yrw">
+						<div class="wt text-center">
+							<a href="{{ single_movie.trailer }}">WATCH TRAILER</a>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<p class="info">CAST:&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ single_movie.actor }}</p>
+					<p class="info">DIRECTION: &nbsp;&nbsp;&nbsp;&nbsp;{{ single_movie.director }}</p>
+					<p class="info">GENRE:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ single_movie.category }}</p>
+					<p class="info">DURATION:&nbsp;&nbsp;&nbsp; &nbsp; {{ single_movie.time }}p</p>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="single">
+				<h3>{{ single_movie.movie_name }}</h3>
+				<p>{{ single_movie.description }}</p>
+			</div>
+			<div class="best-review">
+				<div class="dropdown-button">           			
+					<div class="grade">
+						<form class="grade1" method="POST" action="{% url 'add_cart' single_movie.id %}">
+							{% csrf_token %}
+							<h4>Lịch chiếu</h4>
+							<p>Ngày: {{ single_movie.show_date }}; Ca chiếu: {{ single_movie.show_number}}; Số phòng chiếu: {{ single_movie.cinema_room }}</p>
+							<p>Số ghế: {{ single_movie.seat_number }}</p>
+							<p class="price-ticket">Giá vé: {{ single_movie.ticket_fare }}</p>
+							{% if check %}
+							<button type="submit">Thêm vào giỏ hàng</button>
+							{% else %}
+							<button type="submit" onclick="myFunction()">Thêm vào giỏ hàng</button>
+							{% endif %}
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	function myFunction() {
+	  alert("Vui lòng đăng nhập");
+	}
+</script>
+{% endblock %}

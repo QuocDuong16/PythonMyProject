@@ -1,0 +1,69 @@
+{% extends 'movie/movies.html' %}
+{% block search %}
+{% for item in search %}
+<div class="review">
+    <div class="movie-pic">
+        <a href="{{ item.slug }}"><img height="345px" src="{{ item.image.url }}" alt="" /></a>
+    </div>
+    <div class="review-info">
+        <a class="span" href="{{ item.slug }}">{{ item.movie_name }}</a>
+        <p class="dirctr"><a href="">{{ item.director }}, </a>{{ item.premiere_date }}</p>
+        <p class="ratingview c-rating">{{ item.rating }}/10</p>
+        <div class="clearfix"></div>
+        <div class="yrw">
+            <div class="rtm text-center">
+                <a href="{{ item.slug }}">BOOK TICKET</a>
+            </div>
+            <div class="wt text-center">
+                <a href="{{ item.trailer }}">WATCH THIS TRAILER</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <p class="info">CAST:&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.actor }}</p>
+        <p class="info">DIRECTION: &nbsp;&nbsp;&nbsp;&nbsp;{{ item.director }}</p>
+        <p class="info">GENRE:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ item.category }}</p>
+        <p class="info">DURATION:&nbsp;&nbsp;&nbsp; &nbsp; {{ item.time }}p</p>
+    </div>
+    <div class="clearfix"></div>
+</div>
+{% endfor %}
+<style>
+    .pagination {
+          display: inline-block;
+    }
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        margin: 0 4px;
+    }
+    .pagination a.active {
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #4CAF50;
+    }	
+    .pagination a:hover:not(.active) {background-color: #ddd;}
+</style>
+<div class="pagination">
+    {% if search.has_previous %}
+    <a href="{% url 'search' %}?q={{q}}&page={{search.previous_page_number}}">&laquo;</a>
+    {% else %}
+    <a href="#">&laquo;</a>
+    {% endif %}
+    {% for page in search.paginator.page_range %}
+    {% if page == search.number %}
+    <a href="{% url 'search' %}?q={{q}}&page={{ page }}" class="active">{{ page }}</a>
+    {% else %}
+    <a href="{% url 'search' %}?q={{q}}&page={{ page }}">{{ page }}</a>
+    {% endif %}
+    {% endfor %}
+    {% if search.has_next %}
+    <a href="{% url 'search' %}?q={{q}}&page={{search.next_page_number}}">&raquo;</a>
+    {% else %}
+    <a href="#">&raquo;</a>
+    {% endif %}
+</div>
+{% endblock %}
